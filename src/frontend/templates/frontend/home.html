@@ -1,10 +1,109 @@
-<h3>Home Page</h3>
+{% load static %}
 
-<div>
-    <p>Hello, {{request.user}}</p>
-    <p><a href="{% url 'logout' %}"> Logout </a></p>
-</div>
-<div>
-    <h4>Water Usage: {{water_usage}} </h4>
-    <h4><a href="{% url 'water-usage' %}"> Update Water Usage </a></h4>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Water Tracker</title>
+	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+	<!-- Bootstrap 4.5 CSS -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	<!-- Style CSS -->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/home.css' %}">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
+    <!-- semantic UI -->
+    <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <!--Chart js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+</head>
+
+<body>
+	<h3>Home Page</h3>
+
+    <div>
+        <p>Hello, {{request.user}}</p>
+        <p><a href="{% url 'logout' %}"> Logout </a></p>
+    </div>
+    <div>
+        <h4>Water Usage: {{water_usage}} </h4>
+        <h4><a href="{% url 'water-usage' %}"> Update Water Usage </a></h4>
+    </div>
+    <div>
+        <!-- <h2> Usage History </h2>
+        {% for week in week_data %}
+            <h4>{{week.0}} - {{week.1}}</h4>
+        {% endfor %} -->
+        <div class="chart-container"><canvas id="usageChart" height="400"></canvas>
+            <!-- Bar Graph Script -->
+            <script>
+                var style = getComputedStyle(document.body);
+                var midblue = style.getPropertyValue('--mid-blue');
+                var lightblue = style.getPropertyValue('--light-blue');
+                var ctx = document.getElementById('usageChart').getContext('2d');
+
+                var gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                gradient.addColorStop(0, midblue);
+                gradient.addColorStop(1, lightblue);
+
+                var usageChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: [{% for data in week_data %} '{{data.0}}', {% endfor %}],
+                        datasets: [{
+                            label: 'Water Usage (L)',
+                            data: [500, 625, 2000, 1200, 1000, 3000, 200, 1000],
+                            {% comment %} {% for data in week_data %} '{{data.1}}', {% endfor %} {% endcomment %}
+                            backgroundColor: gradient,
+                            borderColor: midblue,
+                            hoverBackgroundColor: midblue,
+                            hoverBorderColor: midblue,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            xAxes: [{
+                                gridLines: {
+                                    color: "rgba(0,0,0,0)"
+                                }
+                            }],
+                            y: {
+                                beginAtZero: true
+                            },
+                            yAxes: [{
+                                gridLines: {
+                                    color: "rgba(0,0,0,0)"
+                                }
+                            }]
+                        },
+                        legend: {
+                            display: false
+                        },
+                    }
+                });
+            </script>
+        </div>
+    </div>
+
+	<!-- Script Source Files -->
+
+	<!-- jQuery -->
+	<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+	<!-- Bootstrap 4.5 JS -->
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<!-- Popper JS -->
+	<script src="{% static 'js/popper.min.js' %}"></script>
+	<!-- Font Awesome -->
+	<script src="{% static 'js/all.min.js' %}"></script>
+
+	<!-- End Script Source Files -->
+</body>
+</html>

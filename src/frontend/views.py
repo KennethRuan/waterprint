@@ -28,7 +28,7 @@ def home_view(request):
     current_year = profile.date.isocalendar()[0]
     current_week = profile.date.isocalendar()[1]
     week_data = [i.date.isocalendar()[1] for i in profiles]
-    week_data = [[current_week-num_of_weeks+i+1, 0] for i in range(num_of_weeks)]
+    week_data = [[current_week-num_of_weeks+i+1, 0.0] for i in range(num_of_weeks)]
 
     for x in profiles:
         year_number = x.date.isocalendar()[0]
@@ -43,7 +43,7 @@ def home_view(request):
     print(week_data)
 
     water_usage = profile.water_usage
-    context = {"water_usage":water_usage, }
+    context = {"water_usage":water_usage, "week_data":week_data}
     return render(request, 'frontend/home.html', context)
 
 @login_required(login_url="login")
@@ -76,10 +76,8 @@ def register_view(request):
             messages.success(request, "Account Created for " + form.cleaned_data.get("username"))
 
             return redirect('login')
-        else:
-            form_errors = form.errors
 
-    context = {"form": form, "form_errors": form_errors}
+    context = {"form": form}
     return render(request, 'frontend/register.html', context)
 
 def login_view(request):
