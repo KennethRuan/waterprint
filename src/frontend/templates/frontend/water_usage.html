@@ -1,0 +1,10 @@
+<h3> Water Usage </h3>
+
+<form method="POST" action=""> {% csrf_token %}
+    {% for field in form %}
+        {{field.label}}
+        {{field}}
+    {% endfor %}
+    {{form.errors}}
+    <input type="submit" name="Update">
+</form>
