@@ -39,7 +39,7 @@ body {
 .form-container{
   width: 20rem;
   position: absolute;
-  top: 50%;
+  top: 47%;
   left: 52%;
   transform: translate(-50%, -50%);
 }
@@ -55,6 +55,20 @@ body {
 .btn-modern{
   border-radius: 0;
   font-size: 2rem;
+}
+
+.btn-modern-signup{
+  border-bottom: 2px solid blue;
+  border-radius: 0;
+  font-size: 2rem;
+  color: blue;
+}
+
+.btn-modern-login{
+  border-bottom: 2px solid blue;
+  border-radius: 0;
+  font-size: 2rem;
+  color: blue;
 }
 
 .btn-modern:focus{
@@ -73,9 +87,15 @@ body {
 
 .submit-loc{
   position: absolute;
-  top: 62%;
+  top: 59%;
   left: 61%;
   transform: translate(-50%, -50%);
+}
+
+.submit-form{
+  background-color: blue;
+  color: white;
+
 }
 
 /* Devices under 1199px (xl) */
