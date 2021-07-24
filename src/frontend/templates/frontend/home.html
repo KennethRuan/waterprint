@@ -1,4 +1,10 @@
 <h3>Home Page</h3>
 
-<p>Hello, {{request.user}}</p>
-<p><a href="{% url 'logout' %}"> Logout </a></p>
+<div>
+    <p>Hello, {{request.user}}</p>
+    <p><a href="{% url 'logout' %}"> Logout </a></p>
+</div>
+<div>
+    <h4>Water Usage: {{water_usage}} </h4>
+    <h4><a href="{% url 'water-usage' %}"> Update Water Usage </a></h4>
+</div>
