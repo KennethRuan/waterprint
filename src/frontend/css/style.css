@@ -5,45 +5,78 @@ body {
   color: #616971;
 }
 
-/*============= TOP BAR HEADER =============*/
+/*=============Login Page ==============*/
 
-
-
-/*============= NAVIGATION =============*/
-
-
-
-/*============= CAROUSEL =============*/
-
-
-
-/*---Change Carousel Transition Speed --*/
-
-
-/*-- Carousel Content --*/
-
-
-
-/*===== FIXED BACKGROUND IMG =====*/
-
-.fixed-background {
-  overflow: hidden; /*-- Correction for iOS --*/
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
 }
 
+.left {
+  left: 0;
+  background-color: blue;
+}
 
-/*-- Emoji Navbar --*/
+.right {
+  right: 0;
+  background-color: #39dbe0
+  ;
+}
 
+.bot-left{
+  position: absolute;
+  top: 90%;
+  left: 22%;
+  transform: translate(-50%, -50%);
+  font-size: 3.5rem;
+}
 
+.form-container{
+  width: 20rem;
+  position: absolute;
+  top: 50%;
+  left: 52%;
+  transform: translate(-50%, -50%);
+}
 
-/*============= FOOTER =============*/
+.btn-modern:hover,
+.btn-modern:active{
+  border-bottom: 2px solid blue;
+  border-radius: 0;
+  font-size: 2rem;
+  color: blue;
+}
 
+.btn-modern{
+  border-radius: 0;
+  font-size: 2rem;
+}
 
+.btn-modern:focus{
+  outline: none;
+  box-shadow: none;
+}
 
-/*============= SOCKET =============*/
+.login-form{
+  margin-top: .6rem;
+  margin-bottom: .5rem;
+  width: 17rem;
+  border: none;
+  height: 2.2rem;
+  padding-left: .5rem;
+}
 
-
-
-/*============= MEDIA QUERIES =============*/
+.submit-loc{
+  position: absolute;
+  top: 62%;
+  left: 61%;
+  transform: translate(-50%, -50%);
+}
 
 /* Devices under 1199px (xl) */
 @media (max-width: 1199.98px) {

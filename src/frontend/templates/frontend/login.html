@@ -10,3 +10,52 @@
     {% endfor %}
 </form>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Water Tracker</title>
+	<link rel="shortcut icon" href="img/favicon.ico">
+	<!-- Bootstrap 4.5 CSS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<!-- Style CSS -->
+	<link rel="stylesheet" href="css/style.css">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+	<div class="split left">
+		<h1 class="bot-left">Waterprint</h1>
+	  </div>
+	  
+	  <div class="split right">
+		<div class="form-container">
+			<a href="#" class="btn btn-modern px-1 mr-4">Login</a>
+			<a href="{% url 'register' %}" class="btn btn-modern">Sign Up</a>
+			<input class="login-form" type="text" name="username" placeholder='username'>
+			<input class="login-form" type="text" name="password" placeholder='password'>
+	    </div>
+		<div class="submit-loc"> 
+			<input type="Submit" class="fas fa-arrow-right fa-3x">
+		</div>
+	  </div>
+
+
+
+	<!-- Script Source Files -->
+
+	<!-- jQuery -->
+	<script src="js/jquery-3.5.1.min.js"></script>
+	<!-- Bootstrap 4.5 JS -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Popper JS -->
+	<script src="js/popper.min.js"></script>
+	<!-- Font Awesome -->
+	<script src="js/all.min.js"></script>
+
+	<!-- End Script Source Files -->
+</body>
+</html>
