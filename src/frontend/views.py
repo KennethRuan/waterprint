@@ -28,7 +28,7 @@ def home_view(request):
     current_year = profile.date.isocalendar()[0]
     current_week = profile.date.isocalendar()[1]
     week_data = [i.date.isocalendar()[1] for i in profiles]
-    week_data = [[current_week-(num_of_weeks-i+1), 0] for i in range(num_of_weeks)]
+    week_data = [[current_week-num_of_weeks+i+1, 0] for i in range(num_of_weeks)]
 
     for x in profiles:
         year_number = x.date.isocalendar()[0]
@@ -38,7 +38,7 @@ def home_view(request):
         if year_diff > 0 or week_diff >= num_of_weeks:
             break
         
-        week_data[week_diff][1] += x.water_usage
+        week_data[num_of_weeks-week_diff-1][1] += x.water_usage
 
     print(week_data)
 
@@ -67,6 +67,7 @@ def register_view(request):
         return redirect('home')
 
     form = CreateUserForm()
+    form_errors = {}
 
     if request.method == "POST":
         form = CreateUserForm(request.POST)
@@ -75,8 +76,10 @@ def register_view(request):
             messages.success(request, "Account Created for " + form.cleaned_data.get("username"))
 
             return redirect('login')
+        else:
+            form_errors = form.errors
 
-    context = {"form": form}
+    context = {"form": form, "form_errors": form_errors}
     return render(request, 'frontend/register.html', context)
 
 def login_view(request):

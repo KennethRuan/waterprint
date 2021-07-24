@@ -1,16 +1,5 @@
 {% load static %}
 
-<h3>Register</h3>
-
-<form method="POST" action=""> {% csrf_token %}
-    {% for field in form %}
-        {{field.label}}
-        {{field}}
-    {% endfor %}
-    {{form.errors}}
-    <input type="submit" name="Create User">
-</form>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,18 +22,21 @@
 	  </div>
 	  
 	  <div class="split right">
-		<div class="form-container">
+		<form method="POST" action="" class="form-container"> {% csrf_token %}
 			<div>
 				<a href="{% url 'login' %}" class="btn btn-modern px-1 mr-4">Login</a>
 				<a href="#" class="btn btn-modern-signup">Sign Up</a>
 			</div>
+			<p> {{form_errors.username}} </p>
 			<input class="login-form" type="text" name="username" placeholder='username'>
-            <input class="login-form" type="text" name="password" placeholder='email'>
-			<input class="login-form" type="text" name="password" placeholder='password'>
-            <input class="login-form" type="text" name="password" placeholder='confirm password'>
-            <input class="login-form submit-form" type="Submit" value="Create Account">
-	    </div>
-
+			<p> {{form_errors.email}} </p>
+            <input class="login-form" type="text" name="email" placeholder='email'>
+			<p> {{form_errors.password1}} </p>
+			<input class="login-form" type="text" name="password1" placeholder='password'>
+			<p> {{form_errors.password2}} </p>
+            <input class="login-form" type="text" name="password2" placeholder='confirm password'>
+            <input class="login-form submit-form" type="submit" value="Create Account">
+	    </form>
 	  </div>
 
 

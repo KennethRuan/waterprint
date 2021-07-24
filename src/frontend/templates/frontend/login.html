@@ -22,6 +22,7 @@
 	  </div>
 	  
 	  <div class="split right">
+		
 		<form method="POST" action="" class="form-container"> {% csrf_token %}
 			<div>
 				<a href="#" class="btn btn-modern-login px-1 mr-4">Login</a>
@@ -31,15 +32,15 @@
 			<input class="login-form" type="text" name="password" placeholder='password'>
 			<label>
 				<input type="submit" name="login" style="display:none">
-				<div class="submit-loc fas fa-arrow-right fa-3x"/>
+				<div class="submit-loc fas fa-arrow-right fa-3x"></div>
 			</label>
-			<div> 
-				{% for message in messages %}
-        			<p id="messages">{{message}}</p>
-    			{% endfor %}
-			</div>
 	    </form>
-	  </div>
+		<div> 
+			{% for text in messages %}
+				<p>{{text}}</p>
+			{% endfor %}
+		</div>
+	</div>
 
 
 
