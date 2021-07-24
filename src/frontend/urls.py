@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from .views import *
+from .water_usage import *
 
 urlpatterns = [
     path('', login_view),

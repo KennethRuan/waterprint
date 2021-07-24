@@ -7,7 +7,7 @@ from django.contrib import messages
 from .models import Profile
 from datetime import date, datetime, timedelta
 
-from .forms import CreateUserForm, WaterUsageForm
+from .forms import CreateUserForm, WaterUsageForm, AddFriendsForm
 
 # Create your views here.
 @login_required(login_url="login")
@@ -41,25 +41,13 @@ def home_view(request):
         week_data[num_of_weeks-week_diff-1][1] += x.water_usage
 
     print(week_data)
-
     water_usage = profile.water_usage
+
+    friends = profile.friends
+    friends_form = AddFriendsForm(instance=profile)
+
     context = {"water_usage":water_usage, "week_data":week_data}
     return render(request, 'frontend/home.html', context)
-
-@login_required(login_url="login")
-def water_usage_view(request):
-    person = Profile.objects.filter(person_of=request.user).last()
-    form = WaterUsageForm(instance=person)
-
-    if request.method == "POST":
-        form = WaterUsageForm(request.POST, instance=person)
-        if form.is_valid():
-            profile = form.save()
-            profile.save()
-            return redirect("home")
-
-    context = {"form":form}
-    return render(request,"frontend/water_usage.html", context)
 
 
 def register_view(request):

@@ -18,3 +18,8 @@ class WaterUsageForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('water_usage',)
+
+class AddFriendsForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('friends',)
