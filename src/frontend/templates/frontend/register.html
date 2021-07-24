@@ -1,3 +1,5 @@
+{% load static %}
+
 <h3>Register</h3>
 
 <form method="POST" action=""> {% csrf_token %}
@@ -16,11 +18,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Water Tracker</title>
-	<link rel="shortcut icon" href="img/favicon.ico">
+	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
 	<!-- Bootstrap 4.5 CSS -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 	<!-- Style CSS -->
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
 </head>
@@ -32,8 +34,10 @@
 	  
 	  <div class="split right">
 		<div class="form-container">
-			<a href="index.html" class="btn btn-modern px-1 mr-4">Login</a>
-			<a href="signup.html" class="btn btn-modern-signup">Sign Up</a>
+			<div>
+				<a href="{% url 'login' %}" class="btn btn-modern px-1 mr-4">Login</a>
+				<a href="#" class="btn btn-modern-signup">Sign Up</a>
+			</div>
 			<input class="login-form" type="text" name="username" placeholder='username'>
             <input class="login-form" type="text" name="password" placeholder='email'>
 			<input class="login-form" type="text" name="password" placeholder='password'>
@@ -48,13 +52,13 @@
 	<!-- Script Source Files -->
 
 	<!-- jQuery -->
-	<script src="js/jquery-3.5.1.min.js"></script>
+	<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
 	<!-- Bootstrap 4.5 JS -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
 	<!-- Popper JS -->
-	<script src="js/popper.min.js"></script>
+	<script src="{% static 'js/popper.min.js' %}"></script>
 	<!-- Font Awesome -->
-	<script src="js/all.min.js"></script>
+	<script src="{% static 'js/all.min.js' %}"></script>
 
 	<!-- End Script Source Files -->
 </body>
