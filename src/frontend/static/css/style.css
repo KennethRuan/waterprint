@@ -1,3 +1,8 @@
+:root{
+  --light-blue: #e6f5fa
+  --mid-blue: #8ebfd1;
+}
+
 /*-- Body Reset --*/
 body {
   overflow-x: hidden;
@@ -30,9 +35,9 @@ body {
 
 .bot-left{
   position: absolute;
-  top: 90%;
-  left: 22%;
-  transform: translate(-50%, -50%);
+  top: calc(100% - 3.5rem - 30px);
+  left: 0%;
+  margin-left: 30px;
   font-size: 3.5rem;
 }
 
@@ -42,6 +47,8 @@ body {
   top: 47%;
   left: 52%;
   transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
 }
 
 .btn-modern:hover,
@@ -86,10 +93,7 @@ body {
 }
 
 .submit-loc{
-  position: absolute;
-  top: 59%;
-  left: 61%;
-  transform: translate(-50%, -50%);
+  margin-left: calc(100% - 5.5rem);
 }
 
 .submit-form{
