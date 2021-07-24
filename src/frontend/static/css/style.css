@@ -1,6 +1,7 @@
 :root{
-  --light-blue: #e6f5fa
+  --light-blue: #e6f5fa;
   --mid-blue: #8ebfd1;
+  --aqua-grey: #a4afb3;
 }
 
 /*-- Body Reset --*/
@@ -24,12 +25,12 @@ body {
 
 .left {
   left: 0;
-  background-color: blue;
+  background-color: var(--mid-blue);
 }
 
 .right {
   right: 0;
-  background-color: #39dbe0
+  background-color: var(--light-blue);
   ;
 }
 
@@ -53,29 +54,31 @@ body {
 
 .btn-modern:hover,
 .btn-modern:active{
-  border-bottom: 2px solid blue;
+  border-bottom: 2px solid var(--mid-blue);
   border-radius: 0;
   font-size: 2rem;
-  color: blue;
+  color: var(--mid-blue);
 }
 
 .btn-modern{
   border-radius: 0;
   font-size: 2rem;
+  border-bottom: 2px solid var(--light-blue);
+  color: var(--aqua-grey);
 }
 
 .btn-modern-signup{
-  border-bottom: 2px solid blue;
+  border-bottom: 2px solid var(--mid-blue);
   border-radius: 0;
   font-size: 2rem;
-  color: blue;
+  color: var(--mid-blue);
 }
 
 .btn-modern-login{
-  border-bottom: 2px solid blue;
+  border-bottom: 2px solid var(--mid-blue);
   border-radius: 0;
   font-size: 2rem;
-  color: blue;
+  color: var(--mid-blue);
 }
 
 .btn-modern:focus{
@@ -97,7 +100,7 @@ body {
 }
 
 .submit-form{
-  background-color: blue;
+  background-color: var(--mid-blue);
   color: white;
 
 }
