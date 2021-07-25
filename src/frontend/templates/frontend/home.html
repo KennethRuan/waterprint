@@ -125,7 +125,7 @@
                 <form method="POST" action=""> {% csrf_token %}
                     <h3 class="mt-4">Add a friend</h3>
                     <input class="login-form mt-0" type="text" name="username" placeholder='username'>
-                    <p class="error-msg"> {{friends_form.errors.0.0}} </p>
+                    <p class="error-msg"> {{friends_form.errors.username.0}} </p>
                     {% comment %} <input type="submit" name="add-friend"> {% endcomment %}
                 </form>
             </div>
