@@ -2,6 +2,7 @@
   --light-blue: #e6f5fa;
   --mid-blue: #8ebfd1;
   --aqua-grey: #a4afb3;
+  --coral-red: #f55f6b;
 }
 
 /*-- Body Reset --*/
@@ -40,6 +41,10 @@ body {
   left: 0%;
   margin-left: 30px;
   font-size: 3.5rem;
+}
+
+.mr-4, .mx-4 {
+  margin-right: 2rem !important;
 }
 
 .form-container{
@@ -86,6 +91,11 @@ body {
   box-shadow: none;
 }
 
+.form-container .btn{
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+}
+
 .login-form{
   margin-top: .6rem;
   margin-bottom: .5rem;
@@ -102,7 +112,15 @@ body {
 .submit-form{
   background-color: var(--mid-blue);
   color: white;
+}
 
+.account-method{
+  margin-bottom: 10px;
+}
+
+.error-msg{
+  margin: 0px;
+  color: var(--coral-red);
 }
 
 /* Devices under 1199px (xl) */

@@ -23,18 +23,18 @@
 	  
 	  <div class="split right">
 		<form method="POST" action="" class="form-container"> {% csrf_token %}
-			<div>
+			<div class="account-method">
 				<a href="{% url 'login' %}" class="btn btn-modern px-1 mr-4">Login</a>
 				<a href="#" class="btn btn-modern-signup">Sign Up</a>
 			</div>
-			<p> {{form.errors.username}} </p>
-			<input class="login-form" type="text" name="username" placeholder='username'>
-			<p> {{form.errors.email}} </p>
+			<input class="login-form" type="text" name="username" placeholder='username *'>
+			<p class="error-msg"> {{ form.errors.username.0 }} </p>
             <input class="login-form" type="text" name="email" placeholder='email'>
-			<p> {{form.errors.password1}} </p>
-			<input class="login-form" type="text" name="password1" placeholder='password'>
-			<p> {{form.errors.password2}} </p>
-            <input class="login-form" type="text" name="password2" placeholder='confirm password'>
+			<p class="error-msg"> {{ form.errors.email.0 }} </p>
+			<input class="login-form" type="text" name="password1" placeholder='password *'>
+			<p class="error-msg"> {{ form.errors.password1.0 }} </p>
+            <input class="login-form" type="text" name="password2" placeholder='confirm password *'>
+			<p class="error-msg"> {{ form.errors.password2.0 }} </p>
             <input class="login-form submit-form" type="submit" value="Create Account">
 	    </form>
 	  </div>
