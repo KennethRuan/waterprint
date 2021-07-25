@@ -95,13 +95,6 @@
                         });
                     </script>
                 </div>
-                <!-- <div>
-                    <form method="POST" action=""> {% csrf_token %}
-                        <input type="text" name="username" placeholder='username'>
-                        {{friends_form.errors}}
-                        <input type="submit" name="add-friend">
-                    </form>
-                </div> -->
             </div>
         </div>
 
@@ -128,10 +121,15 @@
                 <h3 class="mt-4">New Entry:</h3>
                 <a href="{% url 'water-usage' %}"><button class="plus-button justify-content-center">+</button></a>
             </div>
-
             <div>
-                <h3 class="mt-4">Add a friend</h3>
-                <input class="login-form mt-0" type="text" name="username" placeholder='username'>
+            </div>
+            <div>
+                <form method="POST" action=""> {% csrf_token %}
+                    <h3 class="mt-4">Add a friend</h3>
+                    <input class="login-form mt-0" type="text" name="username" placeholder='username'>
+                    <p class="error-msg"> {{friends_form.errors.0.0}} </p>
+                    {% comment %} <input type="submit" name="add-friend"> {% endcomment %}
+                </form>
             </div>
 
             <div>
