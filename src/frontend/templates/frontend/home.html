@@ -68,6 +68,13 @@
                 });
             </script>
         </div>
+        <div>
+            <form method="POST" action=""> {% csrf_token %}
+                <input type="text" name="username" placeholder='username'>
+                {{friends_form.errors}}
+                <input type="submit" name="add-friend">
+            </form>
+        </div>
     </div>
 
 {% endblock %}

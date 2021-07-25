@@ -2,10 +2,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Profile
 from datetime import date, datetime, timedelta
+from django.forms.utils import ErrorList
 
 from .forms import CreateUserForm, WaterUsageForm, AddFriendsForm
 
@@ -44,9 +46,27 @@ def home_view(request):
     water_usage = profile.water_usage
 
     friends = profile.friends
-    friends_form = AddFriendsForm(instance=profile)
+    friends_form = AddFriendsForm()
+    if request.method == "POST":
+        form = AddFriendsForm(request.POST)
+        if form.is_valid():
+            friend_name = request.POST.get("username")
+            friend_object = User.objects.get(username=friend_name)
 
-    context = {"water_usage":water_usage, "week_data":week_data}
+            friended_user_profile = Profile.objects.filter(person_of=friend_object).last()
+            print(friended_user_profile)
+            if friended_user_profile is not None:
+                print("Succesfully added: " + friend_name)
+                profile.add_friend(friended_user_profile)
+            else:
+                print("Error")
+                errors = form._errors.setdefault("username", ErrorList())
+                errors.append(u"The User that was Entered is Invalid")
+        else:
+            print(form.errors)
+    
+
+    context = {"water_usage":water_usage, "week_data":week_data, "friends_form":friends_form}
     return render(request, 'frontend/home.html', context)
 
 
