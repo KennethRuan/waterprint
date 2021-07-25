@@ -13,3 +13,14 @@ class ProfileFollowing(models.Model):
     follower = models.ForeignKey("Profile", on_delete=models.CASCADE, name="follower")
     followed = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="followed")
     
+class FoodItem(models.Model):
+    food = models.CharField(default="", null=True, blank=True, max_length=150)
+    footprint = models.FloatField(default=0, null=True, blank=True)
+    food_list = models.ForeignKey("FoodList", on_delete=models.CASCADE, related_name="foods")
+
+class FoodList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    master_list = models.ForeignKey("MasterList", on_delete=models.CASCADE, related_name="master_list")
+
+class MasterList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

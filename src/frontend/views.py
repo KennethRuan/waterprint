@@ -19,6 +19,9 @@ def home_view(request):
     num_of_weeks = 8 # num of weeks to display for history
     competition_duration = 4 # num of weeks to display for leaderboard
 
+    # session variable
+    request.session["new_food_list"] = True
+
     profile = Profile.objects.filter(person_of=request.user).last()
 
     # creating a new profile for each day
