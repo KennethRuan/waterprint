@@ -30,25 +30,31 @@
 	            <div class="submit-loc fas fa-arrow-right fa-3x style="></div>
 	        </label>
 	    </form>
-		
+		{% if stage == 2 %}
 		<form method="POST" action="" class="search-bar"> {% csrf_token %}
-			<h2>{{top_result}}</h2>
+			<h2>{{top_result}} &nbsp;</h2>
 			<span>
 				<input class="login-form" type="number" step="0.1" name="quantity" placeholder='2. Mass in kg' initial="0">
 				 <label>
 		            <input type="submit" name="add-item" style="display:none">
-		            <div class="submit-loc fas fa-arrow-right fa-3x"></div>
+		            <!-- <div class="submit-loc fas fa-arrow-right fa-3x"></div> -->
 		        </label>
 			</span>
 		</form>
+		{% endif %}
 		
 		<div class="list">
 			{% for item in food_list %}
-				<div class="list-entry">
+				<form class="list-entry" method="POST" action=""> {% csrf_token %}
 					<span class="list-item">{{item.food}}</span>
 					<span class="list-footprint">- {{item.footprint}}</span>
-					<span class="close">x</span>
-				</div>
+					<span class="close">
+						<label>
+						<input type ="submit" name="delete-{{forloop.counter0}}" style="display:none">
+						 x 
+						</label>
+					</span>
+				</form>
 				
 			{% endfor %}
 		</div>

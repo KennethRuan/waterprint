@@ -21,6 +21,7 @@ def water_usage_view(request):
     master_list = MasterList.objects.filter(user=request.user).last()
     form = WaterUsageForm(instance=person)
     context = {}
+    context["stage"]=1
 
     if request.method == "POST":
         if 'search' in request.POST:
@@ -33,14 +34,12 @@ def water_usage_view(request):
 
             context["top_result"] = crops2[ranks[0]];
             context["footprint"] = mp[crops2[ranks[0]]]
-            context["stage"] = 1;
+            context["stage"] = 2;
         
         if 'add-item' in request.POST:
             if request.session["new_food_list"]:
                 FoodList.objects.create(user=request.user, master_list=master_list)
                 request.session["new_food_list"] = False
-            
-            context["stage"] = 2;
 
             request.session["search_occured"] = True
             food_item = request.session["food_item"]
@@ -52,10 +51,25 @@ def water_usage_view(request):
             profile.save()
 
             FoodItem.objects.create(food=food_item, footprint=footprint, food_list=FoodList.objects.filter(user=request.user).last())
+            context["stage"] = 1;
 
+        for key in request.POST:
+            if 'delete' in key:
+                try:
+                    context["stage"] = 1;
+                    delete_ind = int(key.split('-')[1])
+                    food_list_id = FoodList.objects.filter(user=request.user).last()
+                    food_list = FoodItem.objects.filter(food_list=food_list_id)
+                    r = food_list.order_by('id')[delete_ind]
+                    r.delete()
+                except IndexError:
+                    print("An index error occured, likely that the page was refreshed after a delete request")
+        
+    
     if request.session["search_occured"]:
         food_list_id = FoodList.objects.filter(user=request.user).last()
         context["food_list"] = FoodItem.objects.filter(food_list=food_list_id)
+    # print(context["stage"])
 
     return render(request,"water_usage.html", context)
 
