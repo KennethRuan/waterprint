@@ -1,10 +1,54 @@
-<h3> Water Usage </h3>
+{% load static %}
 
-<form method="POST" action=""> {% csrf_token %}
-    {% for field in form %}
-        {{field.label}}
-        {{field}}
-    {% endfor %}
-    {{form.errors}}
-    <input type="submit" name="Update">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Water Tracker</title>
+	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+	<!-- Bootstrap 4.5 CSS -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	<!-- Style CSS -->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h3> Water Usage </h3>
+
+    <!-- <form method="POST" action=""> {% csrf_token %}
+        {% for field in form %}
+            {{field.label}}
+            {{field}}
+        {% endfor %}
+        {{form.errors}}
+        <input type="submit" name="Update">
+        
+    </form> -->
+
+    <form method="POST" action="" class="form-container"> {% csrf_token %}
+        <input class="login-form" type="text" name="searched" placeholder='Search'>
+        <label>
+            <input type="submit" name="login" style="display:none">
+            <div class="submit-loc fas fa-arrow-right fa-3x"></div>
+        </label>
+    </form>
+
+
+
+	<!-- Script Source Files -->
+
+	<!-- jQuery -->
+	<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+	<!-- Bootstrap 4.5 JS -->
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<!-- Popper JS -->
+	<script src="{% static 'js/popper.min.js' %}"></script>
+	<!-- Font Awesome -->
+	<script src="{% static 'js/all.min.js' %}"></script>
+
+	<!-- End Script Source Files -->
+</body>
+</html>
