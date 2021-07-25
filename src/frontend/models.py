@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     person_of = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     water_usage = models.FloatField(default=0, null=True, blank=True)
-    friends_list = models.ManyToManyField("Profile", blank=True, related_name="friends")
+    friends_list = models.ManyToManyField(User, default="users", blank=True, related_name="friends")
     date = models.DateField(auto_now_add=True)
 
     def __str__(self):
