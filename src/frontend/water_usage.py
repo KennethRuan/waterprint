@@ -26,7 +26,12 @@ def water_usage_view(request):
         similarity = cosine_similarity(query_vector, crop_vectors)
         ranks = (-similarity).argsort(axis=None)
 
-        return render(request,"water_usage.html", {"searched": ranks[0]})
+        context = {
+            "top_result": crops2[ranks[0]],
+            "footprint": mp[crops2[ranks[0]]], 
+        }
+
+        return render(request,"water_usage.html", context)
     return render(request,"water_usage.html", {})
 
         # form = WaterUsageForm(request.POST, instance=person)

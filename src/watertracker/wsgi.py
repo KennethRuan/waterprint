@@ -15,6 +15,7 @@ from nltk.stem.porter import PorterStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
+import re
 import string
 
 REMOVE_PUNCTUATION_TABLE = str.maketrans({x: None for x in string.punctuation})
@@ -35,10 +36,8 @@ mp = {}
 crops2 = []
 
 for i in range(1, 1060, 3):
-    tmp = crops[i].split(",")
-    tmp = tmp[0]
-    tmp = tmp.split("(")
-    tmp = tmp[0]
+    tmp = re.sub(r"[^a-zA-Z0-9]+", " ", crops[i])
+    " ".join(tmp.split())
     crops2.append(tmp)
     mp[tmp] = avg[i]+avg[i+1]+avg[i+2]
 
