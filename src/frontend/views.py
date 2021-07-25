@@ -17,39 +17,45 @@ from .forms import CreateUserForm, WaterUsageForm, AddFriendsForm
 def home_view(request):
     # static variables
     num_of_weeks = 8 # num of weeks to display for history
+    competition_duration = 4 # num of weeks to display for leaderboard
 
     profile = Profile.objects.filter(person_of=request.user).last()
 
-    #creating a new profile for each day
+    # creating a new profile for each day
     if date.today() > profile.date:
         profile=Profile.objects.create(person_of=request.user)
         profile.save()
 
     profile = Profile.objects.filter(person_of=request.user).last()
 
+    # gathering chart data using existing profiles
     profiles = Profile.objects.filter(person_of=request.user).order_by("-id")
     current_year = profile.date.isocalendar()[0]
     current_week = profile.date.isocalendar()[1]
-    week_data = [i.date.isocalendar()[1] for i in profiles]
     week_data = [[current_week-num_of_weeks+i+1, 0.0] for i in range(num_of_weeks)]
 
+    profile.total_usage = 0
     for x in profiles:
         year_number = x.date.isocalendar()[0]
         week_number = x.date.isocalendar()[1]
-        year_diff = current_year - year_number
-        week_diff = current_week - week_number
-        if year_diff > 0 or week_diff >= num_of_weeks:
+        year_diff = abs(current_year - year_number)
+        week_diff = abs(current_week - week_number)
+        if (week_diff >= num_of_weeks and week_diff >= competition_duration):
             break
-        
-        week_data[num_of_weeks-week_diff-1][1] += x.water_usage
+        if (week_diff < num_of_weeks):
+            week_data[num_of_weeks-week_diff-1][1] += x.water_usage
+        if (week_diff < competition_duration):
+            profile.total_usage += x.water_usage
+    profile.save()
 
     print(week_data)
     water_usage = profile.water_usage
 
+    # Adding Friends Component
     friends_form = AddFriendsForm()
     if request.method == "POST":
-        form = AddFriendsForm(request.POST)
-        if form.is_valid():
+        friends_form = AddFriendsForm(request.POST)
+        if friends_form.is_valid():
             friend_name = request.POST.get("username")
 
             if User.objects.filter(username=friend_name).exists():
@@ -61,15 +67,49 @@ def home_view(request):
                     ProfileFollowing.objects.create(follower=user_profile, followed=friend_profile)
                 else:
                     print("Error: Already Following")
-                    errors = form._errors.setdefault("username", ErrorList())
-                    errors.append(u"Already Following That User")
+                    errors = friends_form.add_error("username", "Already following that user")
             else:
                 print("Error: Invalid User")
-                errors = form._errors.setdefault("username", ErrorList())
-                errors.append(u"The User that was Entered is Invalid")
+                errors = friends_form.add_error("username", "The user that was entered is invalid")
         else:
-            print(form.errors)
+            print(friends_form.errors)
 
+    # Gathering leaderboard from following
+    profile_follows = ProfileFollowing.objects.filter(follower=profile)
+    followed_profiles = []
+    for p in profile_follows:
+        fp = p.followed
+        followed_profiles.append([fp.total_usage, fp.person_of.username]) # name and total usage over competition time
+    followed_profiles.append([profile.total_usage, profile.person_of.username])
+    followed_profiles = sorted(followed_profiles)
+    
+    # compiling indices to display
+    lb_ind = [0]
+    
+    user_ind = 0
+    for i,x in enumerate(followed_profiles):
+        if x[1] == profile.person_of.username:
+            user_ind = i
+            break
+    
+    if user_ind not in lb_ind:
+        lb_ind.append(user_ind)
+    
+    if (user_ind - 1) >= 0 and (user_ind - 1) not in lb_ind:
+        lb_ind.append(user_ind-1)
+    
+    if (user_ind + 1) < len(followed_profiles) and (user_ind + 1) not in lb_ind:
+        lb_ind.append(user_ind+1)
+
+    if (len(followed_profiles)-1) not in lb_ind:
+        lb_ind.append(len(followed_profiles)-1)
+
+    lb_ind=sorted(lb_ind)
+    lb_display = [followed_profiles[i] for i in lb_ind]
+    
+    print(lb_display)
+
+    # All the processed variables passed into the context
     context = {"water_usage":water_usage, "week_data":week_data, "friends_form":friends_form}
     return render(request, 'frontend/home.html', context)
 
