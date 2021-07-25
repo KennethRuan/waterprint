@@ -109,10 +109,10 @@
                 </div>
             </div>
 
-            <div class="more-link">
-                <span href="#">All Lists </span>
+            <a href="#" class="more-link">
+                <span>All Lists</span>
                 <i class="fas fa-arrow-right pl-1" style="width:20px; height:20px"></i>
-            </div>
+            </a>
             
         </div>
 
@@ -140,13 +140,10 @@
                     </div>
                 {% endfor %}
             </div>
-
-            <div class="more-link">
-                <a href="{% url 'friends' %}">
-                    <span href="#">All Friends </span>
-                    <i class="fas fa-arrow-right pl-1" style="width:20px; height:20px"></i>
-                </a>
-            </div>
+            <a href="{% url 'friends' %}" class="more-link">
+                <span href="#">All Friends </span>
+                <i class="fas fa-arrow-right pl-1" style="width:20px; height:20px"></i>
+            </a>
         </div>
     </div>
 

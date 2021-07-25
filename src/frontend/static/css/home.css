@@ -31,7 +31,7 @@ body{
 }
 
 .plus-button{
-  background-color: #38a7cf;
+  background-color: var(--mid-blue);
   width: 8rem;
   height: 6rem;
   border: none;
@@ -42,7 +42,8 @@ body{
   border-radius: .5rem;
 }
 .plus-button:hover{
-  background-color: RoyalBlue;
+  transition: background-color 0.2s;
+  background-color: var(--bright-blue);
 }
 
 #homelist{
@@ -65,6 +66,10 @@ body{
     display: flex;
     align-items: center;
     color: var(--bright-blue);
+}
+
+.more-link:hover{
+    transition: color 0.2s;
 }
 
 .more-link span{
