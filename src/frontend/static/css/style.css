@@ -38,6 +38,13 @@ body {
   ;
 }
 
+.image{
+  margin-top: 0;
+  padding-top:0;
+  height: 200px;
+  width: 100%;
+  height: 100%;
+}
 .bot-left{
   position: absolute;
   top: calc(100% - 3.5rem - 30px);
