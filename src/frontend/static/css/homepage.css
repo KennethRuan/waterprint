@@ -1,3 +1,10 @@
+:root{
+  --light-blue: #e6f5fa;
+  --mid-blue: #8ebfd1;
+  --aqua-grey: #a4afb3;
+  --dark-grey: #1f1f1e;
+}
+
 /*-- Body Reset --*/
 body {
   overflow-x: hidden;
@@ -32,7 +39,55 @@ body {
   color: #4981b3 !important;
 }
 
+/*============= MAIN PART =============*/
+.col-spaced {
+  margin-left: 15px
+}
 
+.month{
+  font-size: 6rem;
+  color: var(--dark-grey);
+}
+
+.list-bg{
+  width:100%; height:100%;
+  background-color: rgb(255, 255, 255);
+  color: var(--mid-blue);
+  margin: auto;
+}
+
+.border-primary {
+  border-top: .2rem solid #4981b3!important;
+}
+
+.plus-button{
+  background-color: DodgerBlue;
+  width: 8rem;
+  height: 6rem;
+  border: none;
+  color: white;
+  /* padding: 2rem 2rem; */
+  font-size: 4rem;
+  cursor: pointer;
+  border-radius: .5rem;
+}
+.plus-button:hover{
+  background-color: RoyalBlue;
+}
+
+#homelist{
+  padding-right: 40px;
+}
+
+
+.login-form{
+  margin-top: .6rem;
+  margin-bottom: .5rem;
+  width: 17rem;
+  border: none;
+  height: 2.2rem;
+  padding-left: .5rem;
+}
 /*============= MEDIA QUERIES =============*/
 
 /* Devices under 1199px (xl) */
