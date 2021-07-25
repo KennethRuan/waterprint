@@ -1,16 +1,17 @@
 :root{
   --light-blue: #e6f5fa;
   --mid-blue: #8ebfd1;
+  --bright-blue: #38a7cf;
   --aqua-grey: #a4afb3;
   --coral-red: #f55f6b;
-  --dark-grey: #1f1f1e;
+  --dark-grey: #242423;
 }
 
 /*-- Body Reset --*/
 body {
   overflow-x: hidden;
   font-family: 'Montserrat', sans-serif;
-  /*color: var(--light-blue);*/
+  background-color: var(--light-blue) !important;
 }
 
 /*=============Login Page ==============*/

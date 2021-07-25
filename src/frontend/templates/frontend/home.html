@@ -3,12 +3,12 @@
 {% load static %}
 
 {% block head %}
-    <!-- Home CSS -->
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <!-- semantic UI -->
     <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
     <!--Chart js-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <!-- Home CSS -->
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
 {% endblock %}
 
@@ -29,33 +29,90 @@
         <div class="col-3 my-4 mx-5">
             <div style="margin:auto">
                 <div>
-                    <h2 class="mt-4 mb-0" style="color:#8ebfd1">This Month:</h2>
-                    <h1 class="month">420 L</h1>
+                    <h3 class="mt-4 mb-0" style="color:#8ebfd1">This Month:</h3>
+                    <h1 class="month">420L</h1>
                 </div>
 
                 <div>
-                    <h2 class="mt-4 mb-0" style="color:#8ebfd1">Last Entry:</h2>
-                    <h1 class="month">69 L</h1>
+                    <h3 class="mt-4 mb-0" style="color:#8ebfd1">Last Entry:</h3>
+                    <h1 class="month">69L</h1>
                 </div>
 
                 <div>
-                    <h2 class="mt-4 mb-0" style="color:#8ebfd1">You are in the top:</h2>
+                    <h3 class="mt-4 mb-0" style="color:#8ebfd1">You are in the top:</h3>
                     <h1 class="month">43%</h1>
                 </div>
 
-                <div><!--graph thing--></div>
+                <div class="chart-container"><canvas id="usageChart" height="400"></canvas>
+                    <!-- Bar Graph Script -->
+                    <script>
+                        var style = getComputedStyle(document.body);
+                        var midblue = style.getPropertyValue('--mid-blue');
+                        var lightblue = style.getPropertyValue('--light-blue');
+                        var ctx = document.getElementById('usageChart').getContext('2d');
+
+                        var gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                        gradient.addColorStop(0, midblue);
+                        gradient.addColorStop(1, lightblue);
+
+                        var usageChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: [{% for data in week_data %} '{{data.0}}', {% endfor %}],
+                                datasets: [{
+                                    label: 'Water Usage (L)',
+                                    data: [500, 625, 2000, 1200, 1000, 3000, 200, 1000],
+                                    {% comment %} {% for data in week_data %} '{{data.1}}', {% endfor %} {% endcomment %}
+                                    backgroundColor: gradient,
+                                    borderColor: midblue,
+                                    hoverBackgroundColor: midblue,
+                                    hoverBorderColor: midblue,
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    xAxes: [{
+                                        gridLines: {
+                                            color: "rgba(0,0,0,0)"
+                                        }
+                                    }],
+                                    y: {
+                                        beginAtZero: true
+                                    },
+                                    yAxes: [{
+                                        gridLines: {
+                                            color: "rgba(0,0,0,0)"
+                                        }
+                                    }]
+                                },
+                                legend: {
+                                    display: false
+                                },
+                            }
+                        });
+                    </script>
+                </div>
+                <!-- <div>
+                    <form method="POST" action=""> {% csrf_token %}
+                        <input type="text" name="username" placeholder='username'>
+                        {{friends_form.errors}}
+                        <input type="submit" name="add-friend">
+                    </form>
+                </div> -->
             </div>
-            
         </div>
 
         <div id="homelist" class="col-3 my-4 mx-5">
-            <h2 class="mt-4">Last Entry:</h2>
+            <h3 class="mt-4">Last Entry:</h3>
             <div class="list-bg mt-3">
-                <h2 class="pt-3 row justify-content-center">nAMe oF lISt</h2>
+                <h3 class="pt-3 row justify-content-center">Ronald's Listo</h3>
                 <div class="border-top border-primary w-75 mx-auto my-3"></div>
             </div>
 
-            <div style="display:flex; align-items:center; justify-content: center">
+            <div class="more-link">
                 <span href="#">All Lists </span>
                 <i class="fas fa-arrow-right pl-1" style="width:20px; height:20px"></i>
             </div>
@@ -64,82 +121,21 @@
 
         <div class="col-3 my-4 mx-5 ">
             <div>
-                <h2 class="mt-4">New Entry:</h2>
+                <h3 class="mt-4">New Entry:</h3>
                 <button class="plus-button justify-content-center">+</button>
             </div>
 
             <div>
-                <h2 class="mt-4">Add a friend</h2>
+                <h3 class="mt-4">Add a friend</h3>
                 <input class="login-form mt-0" type="text" name="username" placeholder='username'>
             </div>
 
             <div>
-                <h2 class="mt-4">Leaderboard</h2>
+                <h3 class="mt-4">Leaderboard</h3>
                 
             </div>
 
-            <div class="chart-container"><canvas id="usageChart" height="400"></canvas>
-                <!-- Bar Graph Script -->
-                <script>
-                    var style = getComputedStyle(document.body);
-                    var midblue = style.getPropertyValue('--mid-blue');
-                    var lightblue = style.getPropertyValue('--light-blue');
-                    var ctx = document.getElementById('usageChart').getContext('2d');
-
-                    var gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                    gradient.addColorStop(0, midblue);
-                    gradient.addColorStop(1, lightblue);
-
-                    var usageChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: [{% for data in week_data %} '{{data.0}}', {% endfor %}],
-                            datasets: [{
-                                label: 'Water Usage (L)',
-                                data: [500, 625, 2000, 1200, 1000, 3000, 200, 1000],
-                                {% comment %} {% for data in week_data %} '{{data.1}}', {% endfor %} {% endcomment %}
-                                backgroundColor: gradient,
-                                borderColor: midblue,
-                                hoverBackgroundColor: midblue,
-                                hoverBorderColor: midblue,
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                xAxes: [{
-                                    gridLines: {
-                                        color: "rgba(0,0,0,0)"
-                                    }
-                                }],
-                                y: {
-                                    beginAtZero: true
-                                },
-                                yAxes: [{
-                                    gridLines: {
-                                        color: "rgba(0,0,0,0)"
-                                    }
-                                }]
-                            },
-                            legend: {
-                                display: false
-                            },
-                        }
-                    });
-                </script>
-            </div>
-            <!-- <div>
-                <form method="POST" action=""> {% csrf_token %}
-                    <input type="text" name="username" placeholder='username'>
-                    {{friends_form.errors}}
-                    <input type="submit" name="add-friend">
-                </form>
-            </div> -->
-
-
-            <div style="display:flex; align-items:left; justify-content:left">
+            <div class="more-link">
                 <span href="#">All Friends </span>
                 <i class="fas fa-arrow-right pl-1" style="width:20px; height:20px"></i>
             </div>
