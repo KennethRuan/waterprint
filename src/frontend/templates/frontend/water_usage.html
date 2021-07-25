@@ -31,13 +31,13 @@
 	        </label>
 	    </form>
 		{% if stage == 2 %}
-		<form method="POST" action="" class="search-bar"> {% csrf_token %}
-			<h2>{{top_result}} &nbsp;</h2>
+		<form method="POST" action="" class="search-bar" style="display:flex; flex-direction:column; justify-content: center; align-items: center; margin-top: 20px;"> {% csrf_token %}
+			<h5>{{top_result}} &nbsp;</h5>
 			<span>
 				<input class="login-form" type="number" step="0.1" name="quantity" placeholder='2. Mass in kg' initial="0">
 				 <label>
 		            <input type="submit" name="add-item" style="display:none">
-		            <!-- <div class="submit-loc fas fa-arrow-right fa-3x"></div> -->
+		            <div class="submit-loc fas fa-arrow-right fa-3x"></div>
 		        </label>
 			</span>
 		</form>
