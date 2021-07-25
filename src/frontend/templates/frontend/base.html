@@ -32,11 +32,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="#" class="nav-link active">Home</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Education</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Extracurriculars</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Awards</a></li>
+                    <li class="nav-item"><a href="{% url 'home' %}" class="nav-link active">Home</a></li>
+                    <li class="nav-item"><a href="{% url 'water-usage' %}" class="nav-link">Water Usage</a></li>
+                    <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
                 </ul>
             </div>
 

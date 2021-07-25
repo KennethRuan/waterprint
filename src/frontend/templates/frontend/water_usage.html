@@ -1,22 +1,16 @@
+{% extends "base.html" %}
+
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Water Tracker</title>
-	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
-	<!-- Bootstrap 4.5 CSS -->
-	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+{% block head %}
+
 	<!-- Style CSS -->
-	<link rel="stylesheet" href="{% static 'css/style.css' %}">
-	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <h3> Water Usage </h3>
+	<link rel="stylesheet" href="{% static 'css/water_usage.css' %}">
+
+{% endblock %}
+
+{% block body %}
+    
 
     <!-- <form method="POST" action=""> {% csrf_token %}
         {% for field in form %}
@@ -27,44 +21,39 @@
         <input type="submit" name="Update">
         
     </form> -->
+    <div class="center">
+    	<h3 class="page-title">Create a new list of food</h3>
+    	<form method="POST" action="" class="search-bar"> {% csrf_token %}
+	        <input class="login-form" type="text" name="searched" placeholder='1. Search a food'>
+	        <label>
+	            <input type="submit" name="search" style="display:none">
+	            <div class="submit-loc fas fa-arrow-right fa-3x style="></div>
+	        </label>
+	    </form>
+		
+		<form method="POST" action="" class="search-bar"> {% csrf_token %}
+			<h2>{{top_result}}</h2>
+			<span>
+				<input class="login-form" type="number" step="0.1" name="quantity" placeholder='2. Mass in kg' initial="0">
+				 <label>
+		            <input type="submit" name="add-item" style="display:none">
+		            <div class="submit-loc fas fa-arrow-right fa-3x"></div>
+		        </label>
+			</span>
+		</form>
+		
+		<div class="list">
+			{% for item in food_list %}
+				<div class="list-entry">
+					<span class="list-item">{{item.food}}</span>
+					<span class="list-footprint">- {{item.footprint}}</span>
+					<span class="close">x</span>
+				</div>
+				
+			{% endfor %}
+		</div>
+    </div>
 
-    <form method="POST" action="" class="form-container"> {% csrf_token %}
-        <input class="login-form" type="text" name="searched" placeholder='Search'>
-        <label>
-            <input type="submit" name="search" style="display:none">
-            <div class="submit-loc fas fa-arrow-right fa-3x"></div>
-        </label>
-    </form>
+    
 
-	
-	
-	<form method="POST" action=""> {% csrf_token %}
-		<h2>{{top_result}}</h2>
-		<span>
-			<h2>{{footprint}} L/Kg x</h2> 
-			<input type="number" step="0.1" name="quantity">
-			<h2>kg</h2>
-			<input type="submit" name="add-item">
-		</span>
-	</form>
-	
-	{% for item in food_list %}
-		{{item.food}} - {{item.footprint}}
-	{% endfor %}
-
-
-
-	<!-- Script Source Files -->
-
-	<!-- jQuery -->
-	<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
-	<!-- Bootstrap 4.5 JS -->
-	<script src="{% static 'js/bootstrap.min.js' %}"></script>
-	<!-- Popper JS -->
-	<script src="{% static 'js/popper.min.js' %}"></script>
-	<!-- Font Awesome -->
-	<script src="{% static 'js/all.min.js' %}"></script>
-
-	<!-- End Script Source Files -->
-</body>
-</html>
+{% endblock %}

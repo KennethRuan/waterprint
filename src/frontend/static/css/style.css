@@ -1,4 +1,5 @@
 :root{
+  --light-grey: #f5fbfc;
   --light-blue: #e6f5fa;
   --mid-blue: #8ebfd1;
   --bright-blue: #38a7cf;
@@ -59,12 +60,14 @@ body {
   flex-direction: column;
 }
 
-.btn-modern:hover,
-.btn-modern:active{
+.btn:hover,
+.btn:active{
   border-bottom: 2px solid var(--mid-blue);
   border-radius: 0;
   font-size: 2rem;
   color: var(--mid-blue);
+  outline: none;
+  box-shadow: none;
 }
 
 .btn-modern{
@@ -88,11 +91,6 @@ body {
   color: var(--mid-blue);
 }
 
-.btn-modern:focus{
-  outline: none;
-  box-shadow: none;
-}
-
 .form-container .btn{
   padding-left: 0.2rem;
   padding-right: 0.2rem;
@@ -108,12 +106,26 @@ body {
 }
 
 .submit-loc{
+  color: var(--mid-blue);
+  margin-top: 10px;
   margin-left: calc(100% - 5.5rem);
+}
+
+.submit-loc:hover{
+  transition: color 0.2s;
+  color: var(--bright-blue);
+  cursor: pointer;
 }
 
 .submit-form{
   background-color: var(--mid-blue);
   color: white;
+}
+
+.submit-form:hover{
+  transition: background-color 0.2s;
+  background-color: var(--bright-blue);
+  cursor: pointer;
 }
 
 .account-method{
