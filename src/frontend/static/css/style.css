@@ -10,7 +10,7 @@
 body {
   overflow-x: hidden;
   font-family: 'Montserrat', sans-serif;
-  color: var(--light-blue);
+  /*color: var(--light-blue);*/
 }
 
 /*=============Login Page ==============*/
