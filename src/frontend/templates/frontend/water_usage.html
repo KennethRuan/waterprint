@@ -31,14 +31,26 @@
     <form method="POST" action="" class="form-container"> {% csrf_token %}
         <input class="login-form" type="text" name="searched" placeholder='Search'>
         <label>
-            <input type="submit" name="login" style="display:none">
+            <input type="submit" name="search" style="display:none">
             <div class="submit-loc fas fa-arrow-right fa-3x"></div>
         </label>
     </form>
 
-	<h2>{{top_result}}</h2>
-	<h2>{{footprint}}</h2>
-
+	
+	
+	<form method="POST" action=""> {% csrf_token %}
+		<h2>{{top_result}}</h2>
+		<span>
+			<h2>{{footprint}} L/Kg x</h2> 
+			<input type="number" step="0.1" name="quantity">
+			<h2>kg</h2>
+			<input type="submit" name="add-item">
+		</span>
+	</form>
+	
+	{% for item in food_list %}
+		{{item.food}} - {{item.footprint}}
+	{% endfor %}
 
 
 
