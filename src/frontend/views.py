@@ -118,7 +118,7 @@ def home_view(request):
         lb_ind.append(len(followed_profiles)-1)
 
     lb_ind=sorted(lb_ind)
-    lb_display = [followed_profiles[i] for i in lb_ind]
+    lb_display = [[i+1, followed_profiles[i]] for i in lb_ind]
     
     print(lb_display)
 

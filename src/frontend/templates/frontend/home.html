@@ -131,9 +131,13 @@
             </div>
 
             <div>
-                <h3 class="mt-4">Leaderboard</h3>
+                <h3 class="mt-4 list">Leaderboard</h3>
                 {% for item in condensed_leaderboard %}
-                    {{item.1}} - {{item.0}}
+                    <div class="list-entry">
+                        <span class="list-item" stye="font-weight: bold">{{item.0}}. </span>
+                        <span class="list-item">{{item.1.1}}</span>
+                        <span class="list-footprint"> - {{item.1.0}}</span>
+                    </div>
                 {% endfor %}
             </div>
 

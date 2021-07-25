@@ -137,6 +137,31 @@ body {
   color: var(--coral-red);
 }
 
+.list{
+  min-width: 300px;
+  width: 80%;
+  max-width: 800px;
+}
+
+.list-entry{
+  /*border: 1px solid var(--light-grey);*/
+  padding: 10px;
+  background-color: var(--light-grey);
+  margin: 10px 0px;
+}
+
+.list-item{
+  /*font-weight: bold;*/
+}
+
+.list-footprint{
+  color: var(--bright-blue);
+}
+
+.close{
+  font-weight: lighter;
+}
+
 /* Devices under 1199px (xl) */
 @media (max-width: 1199.98px) {
 
