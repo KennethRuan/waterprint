@@ -45,7 +45,7 @@ def home_view(request):
     print(week_data)
     water_usage = profile.water_usage
 
-    friends = profile.friends
+    friends = profile.friends_list
     friends_form = AddFriendsForm()
     if request.method == "POST":
         form = AddFriendsForm(request.POST)
