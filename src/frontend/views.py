@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
-from .models import Profile, ProfileFollowing
+from .models import *
 from datetime import date, datetime, timedelta
 from django.forms.utils import ErrorList
 
@@ -19,8 +19,9 @@ def home_view(request):
     num_of_weeks = 8 # num of weeks to display for history
     competition_duration = 4 # num of weeks to display for leaderboard
 
-    # session variable
+    # resetting session variable
     request.session["new_food_list"] = True
+    request.session["search_occured"] = False
 
     profile = Profile.objects.filter(person_of=request.user).last()
 
@@ -95,6 +96,15 @@ def home_view(request):
             user_ind = i
             break
     
+    #percentile calculation
+    users_below = (len(followed_profiles)-user_ind-1)
+    total_other_users = (len(followed_profiles)-1)
+    if total_other_users == 0:
+        percentile = 100
+    else:
+        percentile = int(round(users_below/total_other_users))
+
+    #leaderboard display calculation
     if user_ind not in lb_ind:
         lb_ind.append(user_ind)
     
@@ -112,8 +122,36 @@ def home_view(request):
     
     print(lb_display)
 
+    daily_usage = Profile.objects.filter(person_of=request.user).last().water_usage
+
+    last_entry_object = FoodList.objects.filter(user=request.user).last()
+    print(last_entry_object)
+    last_food_list = FoodItem.objects.filter(food_list=last_entry_object)
+    last_entry = []
+    last_water_usage = 0
+    for obj in last_food_list:
+        # print(obj.food, obj.footprint)
+        last_entry.append([obj.food, obj.footprint])
+        last_water_usage += obj.footprint
+
+    last_water_usage_str = ""
+    if last_food_list.exists():
+        last_water_usage_str = str(last_water_usage) + " L"
+    else:
+        last_water_usage_str = "N/A"
+
     # All the processed variables passed into the context
-    context = {"water_usage":water_usage, "week_data":week_data, "friends_form":friends_form}
+    context = {
+        "water_usage":water_usage, 
+        "week_data":week_data, 
+        "friends_form":friends_form,
+        "username": request.user.username,
+        "monthly_usage": profile.total_usage,
+        "last_usage": last_water_usage_str,
+        "percentile": percentile,
+        "condensed_leaderboard": lb_display,
+        "last_list": last_entry,
+        }
     return render(request, 'frontend/home.html', context)
 
 

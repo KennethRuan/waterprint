@@ -30,17 +30,17 @@
             <div style="margin:auto">
                 <div>
                     <h3 class="mt-4 mb-0" style="color:#8ebfd1">This Month:</h3>
-                    <h1 class="month">420L</h1>
+                    <h1 class="month">{{monthly_usage}}L</h1>
                 </div>
 
                 <div>
                     <h3 class="mt-4 mb-0" style="color:#8ebfd1">Last Entry:</h3>
-                    <h1 class="month">69L</h1>
+                    <h1 class="month">{{last_usage}}</h1>
                 </div>
 
                 <div>
                     <h3 class="mt-4 mb-0" style="color:#8ebfd1">You are in the top:</h3>
-                    <h1 class="month">43%</h1>
+                    <h1 class="month">{{percentile}}%</h1>
                 </div>
 
                 <div class="chart-container"><canvas id="usageChart" height="400"></canvas>
@@ -106,10 +106,14 @@
         </div>
 
         <div id="homelist" class="col-3 my-4 mx-5">
-            <h3 class="mt-4">Last Entry:</h3>
+            <h3 class="mt-4">Food Footprint:</h3>
             <div class="list-bg mt-3">
-                <h3 class="pt-3 row justify-content-center">Ronald's Listo</h3>
-                <div class="border-top border-primary w-75 mx-auto my-3"></div>
+                <h3 class="pt-3 row justify-content-center">{{username}}'s Listo</h3>
+                <div class="border-top border-primary w-75 mx-auto my-3">
+                    {% for item in last_list %}
+                        <div>{{item.0}} - {{item.1}}L</div>
+                    {% endfor %}
+                </div>
             </div>
 
             <div class="more-link">
@@ -122,7 +126,7 @@
         <div class="col-3 my-4 mx-5 ">
             <div>
                 <h3 class="mt-4">New Entry:</h3>
-                <button class="plus-button justify-content-center">+</button>
+                <a href="{% url 'water-usage' %}"><button class="plus-button justify-content-center">+</button></a>
             </div>
 
             <div>
@@ -132,7 +136,9 @@
 
             <div>
                 <h3 class="mt-4">Leaderboard</h3>
-                
+                {% for item in condensed_leaderboard %}
+                    {{item.1}} - {{item.0}}
+                {% endfor %}
             </div>
 
             <div class="more-link">
