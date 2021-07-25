@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 django = "*"
 python-dotenv = "*"
+nltk = "*"
+sklearn = "*"
+pandas = "*"
 
 [dev-packages]
 
