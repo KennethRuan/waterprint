@@ -4,8 +4,8 @@
 
 {% block head %}
 
-	<!-- Style CSS -->
-	<link rel="stylesheet" href="{% static 'css/friends.css' %}">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="{% static 'css/water_usage.css' %}">
 
 {% endblock %}
 
@@ -22,11 +22,15 @@
         
     </form> -->
     <div class="center">
-        <h3> All Friends </h3>
-            {% for usage, person in followed_profiles %}
-                {{person}} - {{usage}}
-                <br>
-            {% endfor %}
+        <h3 class="page-title"> Leaderboard </h3>
+        <div class="list">
+                {% for usage, person in followed_profiles %}
+                <div class="list-entry">
+                    <span class="list-item" stye="font-weight: bold">{{person}} </span>
+                    <span class="list-footprint"> - {{usage}}</span>
+                </div>
+                {% endfor %}
+        </div>
     </div>
 
     
