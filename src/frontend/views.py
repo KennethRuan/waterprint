@@ -5,7 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Profile
+from django.db.models import Q
+from .models import Profile, ProfileFollowing
 from datetime import date, datetime, timedelta
 from django.forms.utils import ErrorList
 
@@ -45,26 +46,29 @@ def home_view(request):
     print(week_data)
     water_usage = profile.water_usage
 
-    friends = profile.friends_list
     friends_form = AddFriendsForm()
     if request.method == "POST":
         form = AddFriendsForm(request.POST)
         if form.is_valid():
             friend_name = request.POST.get("username")
-            friend_object = User.objects.get(username=friend_name)
 
-            friended_user_profile = Profile.objects.filter(person_of=friend_object).last()
-            print(friended_user_profile)
-            if friended_user_profile is not None:
+            if User.objects.filter(username=friend_name).exists():
+                friend_user = User.objects.get(username=friend_name)
+                friend_profile = Profile.objects.filter(person_of=friend_user).last()
+                user_profile = profile
                 print("Succesfully added: " + friend_name)
-                profile.add_friend(friended_user_profile)
+                if not ProfileFollowing.objects.filter(Q(follower=user_profile) & Q(followed=friend_profile)).exists():
+                    ProfileFollowing.objects.create(follower=user_profile, followed=friend_profile)
+                else:
+                    print("Error: Already Following")
+                    errors = form._errors.setdefault("username", ErrorList())
+                    errors.append(u"Already Following That User")
             else:
-                print("Error")
+                print("Error: Invalid User")
                 errors = form._errors.setdefault("username", ErrorList())
                 errors.append(u"The User that was Entered is Invalid")
         else:
             print(form.errors)
-    
 
     context = {"water_usage":water_usage, "week_data":week_data, "friends_form":friends_form}
     return render(request, 'frontend/home.html', context)
@@ -83,7 +87,8 @@ def register_view(request):
             form.save()
             username = form.cleaned_data.get("username")
             messages.success(request, "Account Created for " + username)
-            Profile.objects.filter(person_of=username).relations.clear() # clears all m2m relationships
+            # profile = User.objects.get(username=username)
+            # user = Profile.objects.filter(person_of=profile).last()
 
             return redirect('login')
 
