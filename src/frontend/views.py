@@ -199,4 +199,26 @@ def logout_view(request):
     logout(request)
     return redirect("login")
 
+def choices_view(request):
+    return render(request, 'frontend/choices.html', {})
 
+def household_view(request):
+    if request.method == "POST":
+        shower = request.POST.get('shower')
+        dishes = request.POST.get('dishes')
+        dm = request.POST.get('method')
+
+        profile = Profile.objects.filter(person_of=request.user).last()
+        if shower is not "":
+            profile.water_usage += 2*float(shower)
+        if dishes is not "" and dm is not "":
+            dishes = float(dishes)
+            if dm=="machine":
+                profile.water_usage += round(8*(dishes/45))
+            if dm=="hand":
+                profile.water_usage += round(2*dishes)
+        profile.save()
+        # print(shower, dishes, dm)
+        return redirect("home")
+        
+    return render(request, 'frontend/household.html', {})

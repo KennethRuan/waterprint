@@ -1,0 +1,12 @@
+.btn{
+    border:none;
+    font-size: 2rem;
+}
+
+.btn:hover,
+.btn:active{
+  color: var(--bright-blue);
+  outline: none;
+  border: none;
+  box-shadow: none;
+}

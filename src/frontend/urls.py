@@ -10,6 +10,8 @@ urlpatterns = [
     path('logout/', logout_view, name="logout"),
     path('register/', register_view, name="register"),
     path('water-usage/', water_usage_view, name="water-usage"),
+    path('choices/', choices_view, name="choices"),
+    path('household/', household_view, name="household"),
     path('home/', home_view, name="home"),
     path('friends/', friends_view, name="friends"),
 ]

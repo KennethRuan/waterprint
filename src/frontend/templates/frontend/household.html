@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="{% static 'css/water_usage.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="center">
+        <h3 class="page-title"> Fill out appropriate fields</h3>
+        <h4> or leave them blank if not applicable</h4>
+    </div>
+    <form method="POST" action="" class="form-container"> {% csrf_token %}
+        <input class="login-form" type="number" name="shower" placeholder='Shower Length (minutes)'>
+        
+    
+        <input class="login-form" type="number" name="dishes" placeholder='Dish Washing (minutes)'>
+        <select name="method" class="login-form">
+            <option value="" disabled selected>Washing Method</option>
+            <option value="hand">Hand Wash</option>
+            <option value="machine">Machine Wash</option>
+        </select>
+        <input class="login-form submit-form" type="submit" value="Submit">
+    </form>
+
+{% endblock %}

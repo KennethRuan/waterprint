@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/choices.css' %}">
+{% endblock %}
+
+
+{% block body %}
+<a href="{% url 'water-usage' %}">
+    <div class="split left" style="display:flex; justify-content: center;">
+        <button class="btn"> Add Food </button>
+    </div>
+</a>
+<a href="{% url 'household' %}">
+<div class="split right" style="display:flex; justify-content: center;">
+    <button class="btn"> Report Household Water Usage </button>
+</div>
+</a>
+{% endblock %}
+
