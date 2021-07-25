@@ -29,9 +29,13 @@ def tokenize_and_stem(s):
 
 
 data = pd.read_csv(r'crops.csv')
+data2 = pd.read_csv(r'meats.csv')
 df = pd.DataFrame(data)
+df2 = pd.DataFrame(data2)
 crops = df["Product description (HS)"].to_list()
 avg = df["Global average"].to_list()
+meats = df2["Product discription (HS)"].to_list()
+avg2 = df2["Weighted average all"].to_list()
 mp = {}
 crops2 = []
 
@@ -40,6 +44,11 @@ for i in range(1, 1060, 3):
     " ".join(tmp.split())
     crops2.append(tmp)
     mp[tmp] = avg[i]+avg[i+1]+avg[i+2]
+
+for i in range(0, 318, 3):
+    tmp = re.sub(r"[^a-zA-Z0-9]+", " ", meats[i])
+    crops2.append(tmp)
+    mp[tmp] = avg2[i]+avg2[i+1]+avg2[i+2]
 
 vectorizer = TfidfVectorizer(tokenizer=tokenize_and_stem, stop_words='english')
 vectorizer.fit(crops2)
