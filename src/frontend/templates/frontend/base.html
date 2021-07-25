@@ -10,10 +10,16 @@
    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
    <!-- Bootstrap 4.5 CSS -->
    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-   <!-- Style CSS -->
+   <!-- Navbar CSS -->
    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+   <!-- Style CSS -->
+   <link rel="stylesheet" href="{% static 'css/style.css' %}">
    <!-- Google Fonts -->
    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
+
+   {% block head %}
+   {% endblock %}
+   
 </head>
 <body>
 
@@ -22,17 +28,17 @@
 	<!-- Nav Bar -->
 	<nav class="navbar bg-light navbar-light navbar-expand-lg">
 		<div class="container">
-			<a href="homepage.html" class="navbar-brand"><img src="static/img/logo.png" alt="Logo" title="logo"></a>
+			<a href="#" class="navbar-brand"><img src="{% static 'img/logo.png' %}" alt="Logo" title="logo"></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
-					<li class="nav-item"><a href="" class="nav-link">About</a></li>
-					<li class="nav-item"><a href="" class="nav-link">Education</a></li>
-					<li class="nav-item"><a href="" class="nav-link">Extracurriculars</a></li>
-					<li class="nav-item"><a href="" class="nav-link">Awards</a></li>
+					<li class="nav-item"><a href="#" class="nav-link active">Home</a></li>
+					<li class="nav-item"><a href="#" class="nav-link">About</a></li>
+					<li class="nav-item"><a href="#" class="nav-link">Education</a></li>
+					<li class="nav-item"><a href="#" class="nav-link">Extracurriculars</a></li>
+					<li class="nav-item"><a href="#" class="nav-link">Awards</a></li>
 				</ul>
 			</div>
 
@@ -43,13 +49,13 @@
 	
 
 	<!-- jQuery -->
-	<script src="static/js/jquery-3.5.1.min.js"></script>
+	<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
 	<!-- Bootstrap 4.5 JS -->
-	<script src="static/js/bootstrap.min.js"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
 	<!-- Popper JS -->
-	<script src="static/js/popper.min.js"></script>
+	<script src="{% static 'js/popper.min.js' %}"></script>
 	<!-- Font Awesome -->
-	<script src="static/js/all.min.js"></script>
+	<script src="{% static 'js/all.min.js' %}"></script>
 
 	{% block body %}
     {% endblock %}
