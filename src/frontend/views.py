@@ -67,7 +67,7 @@ def home_view(request):
                 friend_profile = Profile.objects.filter(person_of=friend_user).last()
                 user_profile = profile
                 print("Succesfully added: " + friend_name)
-                if not ProfileFollowing.objects.filter(Q(follower=user_profile) & Q(followed=friend_profile)).exists():
+                if not ProfileFollowing.objects.filter(Q(follower=user_profile) & Q(followed=friend_profile)).exists() and user_profile != friend_profile:
                     ProfileFollowing.objects.create(follower=user_profile, followed=friend_profile)
                 else:
                     print("Error: Already Following")
