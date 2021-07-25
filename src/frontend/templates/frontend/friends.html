@@ -1,0 +1,7 @@
+{% load static %}
+
+<h3> All Friends </h3>
+{% for usage, person in followed_profiles %}
+    {{person}} - {{usage}}
+    <br>
+{% endfor %}
