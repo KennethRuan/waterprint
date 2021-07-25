@@ -45,7 +45,7 @@ def home_view(request):
     print(week_data)
     water_usage = profile.water_usage
 
-    friends = profile.friends
+    friends = profile.friends_list
     friends_form = AddFriendsForm()
     if request.method == "POST":
         form = AddFriendsForm(request.POST)
@@ -81,7 +81,9 @@ def register_view(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Account Created for " + form.cleaned_data.get("username"))
+            username = form.cleaned_data.get("username")
+            messages.success(request, "Account Created for " + username)
+            Profile.objects.filter(person_of=username).relations.clear() # clears all m2m relationships
 
             return redirect('login')
 

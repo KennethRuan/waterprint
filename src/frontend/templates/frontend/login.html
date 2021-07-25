@@ -30,16 +30,18 @@
 			</div>
 			<input class="login-form" type="text" name="username" placeholder='username'>
 			<input class="login-form" type="text" name="password" placeholder='password'>
+			
+			<div> 
+			{% for text in messages %}
+				<p class="error-msg"> {{ text }} </p>
+			{% endfor %}
+		</div>
 			<label>
 				<input type="submit" name="login" style="display:none">
 				<div class="submit-loc fas fa-arrow-right fa-3x"></div>
 			</label>
 	    </form>
-		<div> 
-			{% for text in messages %}
-				<p>{{text}}</p>
-			{% endfor %}
-		</div>
+		
 	</div>
 
 
