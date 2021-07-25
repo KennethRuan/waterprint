@@ -24,22 +24,24 @@
 	  <div class="split right">
 		
 		<form method="POST" action="" class="form-container"> {% csrf_token %}
-			<div>
+			<div class="account-method">
 				<a href="#" class="btn btn-modern-login px-1 mr-4">Login</a>
 				<a href="{% url 'register' %}" class="btn btn-modern">Sign Up</a>
 			</div>
 			<input class="login-form" type="text" name="username" placeholder='username'>
 			<input class="login-form" type="text" name="password" placeholder='password'>
+			
+			<div> 
+			{% for text in messages %}
+				<p class="error-msg"> {{ text }} </p>
+			{% endfor %}
+		</div>
 			<label>
 				<input type="submit" name="login" style="display:none">
 				<div class="submit-loc fas fa-arrow-right fa-3x"></div>
 			</label>
 	    </form>
-		<div> 
-			{% for text in messages %}
-				<p>{{text}}</p>
-			{% endfor %}
-		</div>
+		
 	</div>
 
 

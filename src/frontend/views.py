@@ -2,10 +2,13 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Profile
+from django.db.models import Q
+from .models import Profile, ProfileFollowing
 from datetime import date, datetime, timedelta
+from django.forms.utils import ErrorList
 
 from .forms import CreateUserForm, WaterUsageForm, AddFriendsForm
 
@@ -43,10 +46,31 @@ def home_view(request):
     print(week_data)
     water_usage = profile.water_usage
 
-    friends = profile.friends
-    friends_form = AddFriendsForm(instance=profile)
+    friends_form = AddFriendsForm()
+    if request.method == "POST":
+        form = AddFriendsForm(request.POST)
+        if form.is_valid():
+            friend_name = request.POST.get("username")
 
-    context = {"water_usage":water_usage, "week_data":week_data}
+            if User.objects.filter(username=friend_name).exists():
+                friend_user = User.objects.get(username=friend_name)
+                friend_profile = Profile.objects.filter(person_of=friend_user).last()
+                user_profile = profile
+                print("Succesfully added: " + friend_name)
+                if not ProfileFollowing.objects.filter(Q(follower=user_profile) & Q(followed=friend_profile)).exists():
+                    ProfileFollowing.objects.create(follower=user_profile, followed=friend_profile)
+                else:
+                    print("Error: Already Following")
+                    errors = form._errors.setdefault("username", ErrorList())
+                    errors.append(u"Already Following That User")
+            else:
+                print("Error: Invalid User")
+                errors = form._errors.setdefault("username", ErrorList())
+                errors.append(u"The User that was Entered is Invalid")
+        else:
+            print(form.errors)
+
+    context = {"water_usage":water_usage, "week_data":week_data, "friends_form":friends_form}
     return render(request, 'frontend/home.html', context)
 
 
@@ -61,7 +85,10 @@ def register_view(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Account Created for " + form.cleaned_data.get("username"))
+            username = form.cleaned_data.get("username")
+            messages.success(request, "Account Created for " + username)
+            # profile = User.objects.get(username=username)
+            # user = Profile.objects.filter(person_of=profile).last()
 
             return redirect('login')
 
