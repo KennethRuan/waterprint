@@ -1,0 +1,130 @@
+/*============= MAIN PART =============*/
+body{
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .page-title{
+    font-weight: bold;
+    color: var(--dark-grey);
+  }
+  
+  .center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin: 50px auto 0px;
+  }
+  
+  .search-bar{
+    display: flex;
+    flex-direction: row;
+    align-items: center
+  }
+  
+  .search-bar label{
+    margin-bottom: 0px;
+  }
+  
+  .submit-loc{
+    margin-left: 10px;
+    height: 30px;
+    color: var(--mid-blue);
+  }
+  
+  .submit-loc:hover{
+    transition: color 0.2s;
+    color: var(--bright-blue);
+  }
+  
+  .list{
+    min-width: 300px;
+    width: 80%;
+    max-width: 800px;
+  }
+  
+  .list-entry{
+    /*border: 1px solid var(--light-grey);*/
+    padding: 10px;
+    background-color: var(--light-grey);
+    margin: 10px;
+  }
+  
+  .list-item{
+    /*font-weight: bold;*/
+  }
+  
+  .list-footprint{
+    color: var(--bright-blue);
+  }
+  
+  .close{
+    font-weight: lighter;
+  }
+  
+  /*============= MEDIA QUERIES =============*/
+  
+  /* Devices under 1199px (xl) */
+  @media (max-width: 1199.98px) {
+  
+  }
+  /* Devices under 768px (md) */
+  @media (max-width: 767.98px) {
+  
+  }
+  
+  
+  /*============ BOOTSTRAP BREAK POINTS:
+  
+  Extra small (xs) devices (portrait phones, less than 576px)
+  No media query since this is the default in Bootstrap
+  
+  Small (sm) devices (landscape phones, 576px and up)
+  @media (min-width: 576px) { ... }
+  
+  Medium (md) devices (tablets, 768px and up)
+  @media (min-width: 768px) { ... }
+  
+  Large (lg) devices (desktops, 992px and up)
+  @media (min-width: 992px) { ... }
+  
+  Extra (xl) large devices (large desktops, 1200px and up)
+  @media (min-width: 1200px) { ... }
+  
+  =============*/
+  
+  /*-- Bootstrap Mobile Gutter Fix --*/
+  .row, .container-fluid {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+  
+  /*-- Fixed Background Image --*/
+  .fixed-background {
+    position: relative;
+    width: 100%;
+    z-index: 1000!important;
+  }
+  .fixed-wrap {
+    clip: rect(0, auto, auto, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -999 !important;
+  }
+  .fixed {
+    z-index: -999!important;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+  }
