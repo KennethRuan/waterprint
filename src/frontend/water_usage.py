@@ -22,10 +22,6 @@ def water_usage_view(request):
     form = WaterUsageForm(instance=person)
     context = {}
 
-    if request.session["new_food_list"]:
-        FoodList.objects.create(user=request.user, master_list=master_list)
-        request.session["new_food_list"] = False
-
     if request.method == "POST":
         if 'search' in request.POST:
             query = request.POST["searched"]
@@ -35,12 +31,18 @@ def water_usage_view(request):
             request.session["food_item"] = crops2[ranks[0]]
             request.session["footprint"] = mp[crops2[ranks[0]]]
 
-            context = {
-                "top_result": crops2[ranks[0]],
-                "footprint": mp[crops2[ranks[0]]], 
-            }
+            context["top_result"] = crops2[ranks[0]];
+            context["footprint"] = mp[crops2[ranks[0]]]
+            context["stage"] = 1;
         
         if 'add-item' in request.POST:
+            if request.session["new_food_list"]:
+                FoodList.objects.create(user=request.user, master_list=master_list)
+                request.session["new_food_list"] = False
+            
+            context["stage"] = 2;
+
+            request.session["search_occured"] = True
             food_item = request.session["food_item"]
             quantity = request.POST["quantity"]
             footprint = float(request.session["footprint"]) * float(quantity)
@@ -51,8 +53,9 @@ def water_usage_view(request):
 
             FoodItem.objects.create(food=food_item, footprint=footprint, food_list=FoodList.objects.filter(user=request.user).last())
 
-    food_list_id = FoodList.objects.filter(user=request.user).last()
-    context["food_list"] = FoodItem.objects.filter(food_list=food_list_id)
+    if request.session["search_occured"]:
+        food_list_id = FoodList.objects.filter(user=request.user).last()
+        context["food_list"] = FoodItem.objects.filter(food_list=food_list_id)
 
     return render(request,"water_usage.html", context)
 
