@@ -61,6 +61,10 @@ def water_usage_view(request):
                     food_list_id = FoodList.objects.filter(user=request.user).last()
                     food_list = FoodItem.objects.filter(food_list=food_list_id)
                     r = food_list.order_by('id')[delete_ind]
+                    print(r.footprint)
+                    profile = Profile.objects.filter(person_of=request.user).last()
+                    profile.water_usage -= r.footprint
+                    profile.save()
                     r.delete()
                 except IndexError:
                     print("An index error occured, likely that the page was refreshed after a delete request")

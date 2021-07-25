@@ -61,7 +61,7 @@
                                 labels: [{% for data in week_data %} '{{data.0}}', {% endfor %}],
                                 datasets: [{
                                     label: 'Water Usage (L)',
-                                    data: [500, 625, 2000, 1200, 1000, 3000, 200, 1000],
+                                    data: [500, 625, 2000, 1200, 1000, 3000, 200, {{week_data.7.1}}],
                                     {% comment %} {% for data in week_data %} '{{data.1}}', {% endfor %} {% endcomment %}
                                     backgroundColor: gradient,
                                     borderColor: midblue,
